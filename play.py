@@ -21,6 +21,16 @@ mapa = [ "C", "O", "T" ]
 
 def predict(img):
 
+    pixels = np.sum(img)
+
+    # Filtr - za mało zamalowane (puste lub prawie puste)
+    if pixels < 5:
+        return "Nic (za mało)", 1
+
+    # Filtr - za dużo zamalowane (bazgroły)
+    if pixels > 200:
+        return "Nic (za dużo)", 1
+
     x = img.reshape(1, 784)
 
     z1 = x@W1 + b1
@@ -31,7 +41,15 @@ def predict(img):
     probs = softmax(z2)
 
     cls = np.argmax(probs)
-    conf = float(probs[0, cls])
+    conf = float(probs[0,cls])
+
+    # Filtr - próbki innych znaków
+    if cls == 3:
+        return "Nic (inne)", conf
+
+    # Filtr - za mała pewność
+    if conf < 0.75:
+        return "Nic", conf
 
     return mapa[cls], conf
 
