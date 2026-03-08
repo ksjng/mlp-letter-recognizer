@@ -23,11 +23,11 @@ def predict(img):
 
     pixels = np.sum(img)
 
-    # Filtr - za mało zamalowane (puste lub prawie puste)
+    # reject drawings that are too small (almost empty canvas)
     if pixels < 5:
         return "Nic (za mało)", 1
 
-    # Filtr - za dużo zamalowane (bazgroły)
+    # reject drawings that are too large (random scribbles)
     if pixels > 200:
         return "Nic (za dużo)", 1
 
@@ -43,11 +43,11 @@ def predict(img):
     cls = np.argmax(probs)
     conf = float(probs[0,cls])
 
-    # Filtr - próbki innych znaków
+    # reject unknown symbols
     if cls == 3:
         return "Nic (inne)", conf
 
-    # Filtr - za mała pewność
+    # reject predictions with low confidence
     if conf < 0.75:
         return "Nic", conf
 
