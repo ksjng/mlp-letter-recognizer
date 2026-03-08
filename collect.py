@@ -14,6 +14,7 @@ class App:
 
         self.root = root
         self.root.title("Zbieranie próbek C, O i T")
+        self.root.protocol("WM_DELETE_WINDOW", self.exit)
         self.img = np.zeros((28, 28))
         self.fig, self.ax = plt.subplots(figsize=(3, 3))
         self.ax.set_xlim(0, 28)
@@ -73,7 +74,7 @@ class App:
 
         count[label] += 1
 
-        print("Zapisano próbkę:", label)
+        print("Zapisano próbkę")
 
         self.img[:] = 0
         self.im.set_data(self.img)
@@ -87,8 +88,7 @@ class App:
     def save_t(self, e): self.save(2)
     def save_x(self, e): self.save(3)
 
-
-    def exit(self, e):
+    def exit(self, e=None):
 
         print("Zapisywanie datasetu...")
 
@@ -97,6 +97,7 @@ class App:
         print("Dataset zapisany:", len(data), "próbek")
 
         self.root.destroy()
+        self.root.quit()
 
 root=tk.Tk()
 

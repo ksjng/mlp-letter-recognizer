@@ -59,6 +59,7 @@ class App:
 
         self.root = root
         self.root.title("Rozpoznawanie liter C O T")
+        self.root.protocol("WM_DELETE_WINDOW", self.exit)
         self.fig, self.ax = plt.subplots(figsize=(3, 3))
         self.ax.set_xlim(0,28)
         self.ax.set_ylim(28,0)
@@ -119,6 +120,10 @@ class App:
         letter, p = predict(self.img)
 
         self.label.config(text=f"Sieć rozpoznała: {letter}\nPewność: {p * 100:.1f}%")
+
+    def exit(self):
+        self.root.destroy()
+        self.root.quit()
 
 root=tk.Tk()
 
