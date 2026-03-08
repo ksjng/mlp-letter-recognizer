@@ -36,7 +36,7 @@ def predict(img):
         return "Nic (za mało)", 1
 
     # reject drawings that are too large (random scribbles)
-    if pixels > 200:
+    if pixels > 300:
         return "Nic (za dużo)", 1
 
     x = img.reshape(1, 784)
@@ -69,12 +69,12 @@ class App:
         self.root.title("Rozpoznawanie liter C O T")
         self.root.protocol("WM_DELETE_WINDOW", self.exit)
         self.fig, self.ax = plt.subplots(figsize=(3, 3))
-        self.ax.set_xlim(0,28)
-        self.ax.set_ylim(28,0)
+        self.ax.set_xlim(0, 28)
+        self.ax.set_ylim(28, 0)
         self.ax.axis("off")
         self.canvas = FigureCanvasTkAgg(self.fig, master=root)
         self.canvas.get_tk_widget().pack()
-        self.img = np.zeros((28,28))
+        self.img = np.zeros((28, 28))
         self.im = self.ax.imshow(self.img, cmap="gray", vmin=0, vmax=1)
 
         frame = tk.Frame(root)
@@ -91,7 +91,7 @@ class App:
         self.canvas.get_tk_widget().bind("<Button-1>", self.start)
         self.canvas.get_tk_widget().bind("<ButtonRelease-1>", self.stop)
 
-    def start(self,e):
+    def start(self, e):
         self.drawing = True
 
     def stop(self, e):
@@ -105,10 +105,10 @@ class App:
         x = int(e.xdata)
         y = int(e.ydata)
 
-        for dx in range(-1,2):
-            for dy in range(-1,2):
+        for dx in range(-1, 2):
+            for dy in range(-1, 2):
 
-                if 0 <= x + dx < 28 and 0 <= y +dy < 28:
+                if 0 <= x + dx < 28 and 0 <= y + dy < 28:
                     self.img[y + dy, x + dx] = 1
 
         self.im.set_data(self.img)
@@ -133,7 +133,7 @@ class App:
         self.root.destroy()
         self.root.quit()
 
-root=tk.Tk()
+root = tk.Tk()
 
 App(root)
 

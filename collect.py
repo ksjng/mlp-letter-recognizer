@@ -55,8 +55,8 @@ class App:
         if not self.drawing or e.xdata is None or e.ydata is None:
             return
 
-        x=int(e.xdata)
-        y=int(e.ydata)
+        x = int(e.xdata)
+        y = int(e.ydata)
 
         for dx in range(-1, 2):
             for dy in range(-1, 2):
@@ -99,8 +99,8 @@ class App:
         self.root.destroy()
         self.root.quit()
 
-root=tk.Tk()
+root = tk.Tk()
 
-app=App(root)
+app = App(root)
 
 root.mainloop()
