@@ -5,6 +5,8 @@ The program learns to recognize hand-drawn letters **C**, **O** and **T** based 
 
 The model is trained on a small custom dataset collected through a drawing interface.
 
+This project was created as part of a university lab exercise.
+
 ## Features
 
 - MLP neural network implemented **without ML frameworks**
