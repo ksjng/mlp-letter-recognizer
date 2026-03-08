@@ -1,11 +1,19 @@
 import numpy as np
+import sys
 
-data = np.load("dataset.npz")
+try:
+    data = np.load("dataset.npz")
+    X = data["X"]
+    Y = data["Y"]
+except FileNotFoundError:
+    print("Błąd: plik dataset.npz nie istnieje.")
+    print("Najpierw uruchom collect.py aby zebrać dane treningowe.")
+    sys.exit(1)
+except Exception:
+    print("Błąd: nie udało się odczytać pliku dataset.npz (plik może być uszkodzony).")
+    sys.exit(1)
 
-X = data["X"]
-Y = data["Y"]
-
-X = X.reshape(len(X),784)
+X = X.reshape(len(X), 784)
 
 input_size = 784
 hidden = 128

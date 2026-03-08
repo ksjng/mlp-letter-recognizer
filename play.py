@@ -2,6 +2,7 @@ import numpy as np
 import tkinter as tk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
+import sys
 
 def relu(x):
     return np.maximum(0, x)
@@ -10,12 +11,19 @@ def softmax(x):
     e = np.exp(x - np.max(x))
     return e / np.sum(e)
 
-model = np.load("model.npz")
-
-W1 = model["W1"]
-b1 = model["b1"]
-W2 = model["W2"]
-b2 = model["b2"]
+try:
+    model = np.load("model.npz")
+    W1 = model["W1"]
+    b1 = model["b1"]
+    W2 = model["W2"]
+    b2 = model["b2"]
+except FileNotFoundError:
+    print("Błąd: plik model.npz nie istnieje.")
+    print("Najpierw uruchom train.py aby wytrenować model.")
+    sys.exit(1)
+except Exception:
+    print("Błąd: nie udało się odczytać pliku model.npz (plik może być uszkodzony).")
+    sys.exit(1)
 
 mapa = [ "C", "O", "T" ]
 
